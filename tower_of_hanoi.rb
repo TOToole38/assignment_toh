@@ -14,6 +14,7 @@ def setup_game
 	puts "Goal: Get all the disks from peg number 1 onto either peg number 2 or 3."
 	puts "Move a disk by specifying which peg number it is coming from and which peg number it is going to i.e. 1, 3"
 	puts "Type 'quit' to exit the game."
+	puts " "
 
 	# Initial game structure 
 	return [[3, 2, 1], [], []] 
@@ -46,7 +47,6 @@ def legal_move(peg_state, from_peg, to_peg)
 end
 
 def move_disk(peg_state, from_peg, to_peg)
- 
  	peg_state[to_peg] << peg_state[from_peg].last
  	peg_state[from_peg].pop 
  return peg_state
@@ -58,6 +58,22 @@ def check_if_won(peg_state)
 	else
 		return false
 	end
+end
+
+
+def render(peg_state)
+	# pegWidth = 30 
+	# disk_image = "o"
+	# puts disk_image.ljust pegWidth
+	print peg_state
+	puts " "
+	puts " "
+	print peg_state[0].to_s.ljust(10) + peg_state[1].to_s.center(10) + peg_state[2].to_s.rjust(10)
+	puts " "
+	print "Peg 1".ljust(10) + "Peg 2".center(10) + "Peg 3".rjust(10)
+	puts " "
+	puts " "
+
 end
 
 def play 
@@ -83,13 +99,14 @@ def play
 			peg_state = move_disk(peg_state, from_peg, to_peg)
 		end
 
-		puts peg_state
+		render(peg_state)
 
 		if check_if_won(peg_state)
 			puts "Congratulations!! You figured out the Tower of Hanoi!"
 			continue_game = false 
 		end
 	end
+
 	puts "exiting game"
 	exit
 end
