@@ -31,9 +31,10 @@ end
 
 
 def legal_move(peg_state, from_peg, to_peg)
-	if peg_state[to_peg].empty?
+	if peg_state[to_peg].length == 0 || peg_state[to_peg] == [nil]
+		# print "empty to "
 		return true
-	elsif peg_state[from_peg].empty?
+	elsif peg_state[from_peg].length == 0
 		puts "There are no pegs on peg number #{from_peg+1}."
 		return false
 	elsif (peg_state[from_peg].last < peg_state[to_peg].last)
@@ -44,8 +45,20 @@ def legal_move(peg_state, from_peg, to_peg)
 	end
 end
 
+def move_disk(peg_state, from_peg, to_peg)
+ 
+ 	peg_state[to_peg] << peg_state[from_peg].last
+ 	peg_state[from_peg].pop 
+ return peg_state
+end
 
-
+def check_if_won(peg_state)
+	if peg_state[1].length == 3 || peg_state[2].length == 3
+		return true
+	else
+		return false
+	end
+end
 
 def play 
 	peg_state = setup_game   # [[3, 2, 1], [], []] 
@@ -66,15 +79,19 @@ def play
 			exit
 		elsif (format_check(user_input, from_peg, to_peg) == false) || (legal_move(peg_state, from_peg, to_peg) == false)
 			redo
+		else
+			peg_state = move_disk(peg_state, from_peg, to_peg)
 		end
 
-		
-		# validate_input(from_peg, to_peg)
+		puts peg_state
 
-		# puts from_peg, to_peg
-		
+		if check_if_won(peg_state)
+			puts "Congratulations!! You figured out the Tower of Hanoi!"
+			continue_game = false 
+		end
 	end
-
+	puts "exiting game"
+	exit
 end
 
 
