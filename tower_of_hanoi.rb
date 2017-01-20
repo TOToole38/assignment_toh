@@ -61,20 +61,27 @@ def check_if_won(peg_state)
 end
 
 
-def render(peg_state)
-	# pegWidth = 30 
-	# disk_image = "o"
-	# puts disk_image.ljust pegWidth
-	print peg_state
-	puts " "
-	puts " "
-	print peg_state[0].to_s.ljust(10) + peg_state[1].to_s.center(10) + peg_state[2].to_s.rjust(10)
-	puts " "
-	print "Peg 1".ljust(10) + "Peg 2".center(10) + "Peg 3".rjust(10)
-	puts " "
-	puts " "
+def render (peg_state)
+	line = 2
+	
+	while line >= 0
+		puts ("o"*peg_state[0][line].to_i).ljust(10) + ("o"*peg_state[1][line].to_i).center(10) + ("o"*peg_state[2][line].to_i).rjust(10)
+		line = line - 1
+	end
 
+
+	puts "-" * 30 
+	puts "Peg 1".ljust(10) + "Peg 2".center(10) + "Peg 3".rjust(10)
 end
+
+
+
+
+
+
+
+
+
 
 def play 
 	peg_state = setup_game   # [[3, 2, 1], [], []] 
